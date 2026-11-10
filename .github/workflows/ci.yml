@@ -1,0 +1,16 @@
+name: ci test
+on: [push, pull_request]
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check the code
+        uses: action/checkout@v4
+      - name: set up python
+        uses: action/setup-python@v5
+        with: 
+          python-verison: "3.12"
+      - name: Install dependencies
+        run: pip install -r r.txt
+      - name: test 
+        run: pytest
