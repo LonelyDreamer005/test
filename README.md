@@ -89,3 +89,15 @@ kubectl get pods
 ```bash
 minikube service devops-service --url
 ```
+mkdir -p ~/bin
+echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+cd /tmp
+wget https://releases.hashicorp.com/terraform/1.7.5/terraform_1.7.5_linux_amd64.zip
+unzip terraform_1.7.5_linux_amd64.zip
+mv terraform ~/bin/
+cd ~/test
+terraform init
+terraform plan
+terraform apply -auto-approve
+cat hello.txt
