@@ -1,34 +1,91 @@
-## PART OF TEST BRANCH
+# Part of Test Branch
 
-'''
+```text
 HI
-'''
+```
+
+---
 
 # cURL Commands
 
-\# 1. Root route curl http://localhost:5000/  # 2. Get all students curl http://localhost:5000/students  # 3. Get student by ID curl http://localhost:5000/students/1  # 4. Create student curl -X POST http://localhost:5000/students -H "Content-Type: application/json" -d '{"name": "rahul", "course": "mech"}'  # 5. Update student curl -X PATCH http://localhost:5000/students/1 -H "Content-Type: application/json" -d '{"course": "ai/ml"}'  # 6. Delete student curl -X DELETE http://localhost:5000/students/2  # 7. Get all students (verify) curl http://localhost:5000/students
+Use the following commands to test the Flask Student API.
 
-# kuber
+### 1. Check Root Route
+```bash
+curl http://localhost:5000/
+```
 
-\# 1. Start Minikube cluster
+### 2. Get All Students
+```bash
+curl http://localhost:5000/students
+```
+
+### 3. Get Student by ID
+```bash
+curl http://localhost:5000/students/1
+```
+
+### 4. Create a Student (POST)
+```bash
+curl -X POST http://localhost:5000/students \
+-H "Content-Type: application/json" \
+-d '{"name": "rahul", "course": "mech"}'
+```
+
+### 5. Update Student Details (PATCH)
+```bash
+curl -X PATCH http://localhost:5000/students/1 \
+-H "Content-Type: application/json" \
+-d '{"course": "ai/ml"}'
+```
+
+### 6. Delete a Student (DELETE)
+```bash
+curl -X DELETE http://localhost:5000/students/2
+```
+
+### 7. Verify Student Records
+```bash
+curl http://localhost:5000/students
+```
+
+---
+
+# Kubernetes Commands
+
+### 1. Start Minikube Cluster
+```bash
 minikube start
+```
 
-\# 2. Load local Docker image into Minikube
+### 2. Load Local Docker Image into Minikube
+```bash
 minikube image load test-web:latest
+```
 
-\# 3. Apply Kubernetes manifests
+### 3. Apply Kubernetes Manifests
+```bash
 kubectl apply -f k8s/
+```
 
-\# 4. Check status of resources
+### 4. Check Resource Status
+```bash
 kubectl get pods
-kubectl get deployment
-kubectl get service
+kubectl get deployments
+kubectl get services
+```
 
-\# 5. Scale deployment to 3 replicas
+### 5. Scale Deployment to 3 Replicas
+```bash
 kubectl scale deployment devops-app --replicas=3
+```
 
-\# 6. Verify scaled pods
+### 6. Verify Scaled Pods
+```bash
 kubectl get pods
+```
 
-\# 7. Get application URL
+### 7. Get Application URL
+```bash
 minikube service devops-service --url
+```
