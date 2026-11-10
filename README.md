@@ -303,6 +303,43 @@ git push origin main
 git pull origin main
 ```
 
+## Trivy kaise? 
+
+#### this first (for cloud shell to download)
+sudo apt-get update
+sudo apt-get install -y wget gnupg
+
+wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key \
+| gpg --dearmor \
+| sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
+
+echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb generic main" \
+| sudo tee /etc/apt/sources.list.d/trivy.list
+
+sudo apt-get update
+sudo apt-get install -y trivy
+
+### Build image
+docker build -t test-web .
+
+### Check image
+docker images
+
+### Step 1: Complete vulnerability scan
+trivy image test-web
+
+### Step 2: HIGH and CRITICAL vulnerabilities
+trivy image --severity HIGH,CRITICAL test-web
+
+### Step 3: Scan vulnerabilities and secrets
+trivy image --scanners vuln,secret test-web
+
+### Step 4: Generate JSON report
+trivy image -f json -o report.json test-web
+
+### View report
+cat report.json
+
 ---
 
 **End of DevOps Practical Commands**
