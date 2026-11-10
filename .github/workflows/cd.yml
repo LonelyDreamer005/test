@@ -1,7 +1,7 @@
 name: cd test
 on: 
-  workflows-run:
-    workflow: ['ci test']
+  workflow_run:
+    workflows: ['ci test']
     types:
       - completed
 jobs:
