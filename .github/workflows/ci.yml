@@ -9,7 +9,7 @@ jobs:
       - name: set up python
         uses: action/setup-python@v5
         with: 
-          python-verison: "3.12"
+          python-version: "3.12"
       - name: Install dependencies
         run: pip install -r r.txt
       - name: test 
