@@ -1,25 +1,19 @@
-import pytest
+
 from app import app
 
+client = app.test_client()
 
-@pytest.fixture
-def client():
-    app.config["TESTING"] = True
-    with app.test_client() as client:
-        yield client
+def test_home():
+    assert client.get("/").status_code == 200
 
+def test_get_students():
+    assert client.get("/students").status_code == 200
 
-def test_home(client):
-    r = client.get("/")
-    assert r.status_code == 200
+def test_add_student():
+    res = client.post("/students", json={
+        "name": "Alice",
+        "course": "CS"
+    })
 
-
-def test_get_students(client):
-    res = client.get("/students")  # Changed /student -> /students
-    assert res.status_code == 200
-
-
-def test_add_student(client):
-    res = client.post("/students", json={"name": "Alice", "course": "CS"})  # Changed /student -> /students
     assert res.status_code == 201
-    assert res.get_json()["name"] == "Alice"
+    assert res.json["name"] == "Alice"
