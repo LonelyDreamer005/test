@@ -114,3 +114,28 @@ terraform apply -auto-approve
 # Inspect and clean
 terraform show
 terraform destroy -auto-approve
+
+# scaling in kuber
+kubectl scale deployment devops-app --replicas=2
+
+kubectl get pods
+
+kubectl scale deployment devops-app --replicas=5
+
+kubectl get pods
+kubectl get deployment
+
+# rolling updates
+
+kubectl set image deployment/devops-app \
+devops-container=test-web:v2
+
+kubectl rollout status deployment/devops-app
+
+kubectl rollout history deployment/devops-app
+
+# configmap.yaml 
+kubectl apply -f k8s/configmap.yaml
+
+kubectl get configmaps
+kubectl describe configmap app-config
