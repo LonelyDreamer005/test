@@ -89,6 +89,7 @@ kubectl get pods
 ```bash
 minikube service devops-service --url
 ```
+# set up in cloud shell for terraform
 mkdir -p ~/bin
 echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
@@ -101,3 +102,15 @@ terraform init
 terraform plan
 terraform apply -auto-approve
 cat hello.txt
+
+# Initialize and validate
+terraform init
+terraform validate
+
+# Plan and apply
+terraform plan
+terraform apply -auto-approve
+
+# Inspect and clean
+terraform show
+terraform destroy -auto-approve
