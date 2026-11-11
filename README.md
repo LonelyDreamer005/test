@@ -340,6 +340,72 @@ trivy image -f json -o report.json test-web
 ### View report
 cat report.json
 
+# Python + Prometheus + Grafana Monitoring
+
+## 1. Start Containers
+
+```bash
+docker compose up -d --build
+docker ps
+```
+
+## 2. Test Python Application
+
+```bash
+curl http://localhost:5000/
+curl http://localhost:5000/metrics
+```
+
+Generate requests:
+
+```bash
+for i in {1..30}; do curl -s http://localhost:5000/; done
+```
+
+## 3. Test Prometheus
+
+Open port **9090** using Google Cloud Shell Web Preview.
+
+Check targets:
+
+```bash
+curl http://localhost:9090/api/v1/targets
+```
+
+Open Prometheus → **Status → Targets** → Check `flask` is `UP`.
+
+## 4. Test Grafana
+
+Open port **8080** using Google Cloud Shell Web Preview.
+
+- Go to Connections → Data sources.
+- Add Prometheus.
+- URL: `http://prometheus:9090`
+- Click **Save & test**.
+
+## 5. Grafana Queries
+
+| Purpose | PromQL |
+|---|---|
+| Total Requests | `app_requests_total` |
+| Request Rate | `rate(app_requests_total[1m])` |
+| Application Status | `up{job="flask"}` |
+| Requests (5 min) | `increase(app_requests_total[5m])` |
+
+## 6. Stop Containers
+
+```bash
+docker compose down
+```
+
+## 7. View Logs
+
+```bash
+docker compose logs
+docker logs python-app
+docker logs prometheus
+docker logs grafana
+```
 ---
 
 **End of DevOps Practical Commands**
